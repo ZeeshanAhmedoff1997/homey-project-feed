@@ -17,15 +17,15 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
-gem 'devise'
+gem "devise"
 
-gem 'pundit'
+gem "pundit"
 
 gem "tailwindcss-rails", "~> 3.3.1"
 
-gem 'view_component'
+gem "view_component"
 
-gem 'state_machines-activerecord'
+gem "state_machines-activerecord"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"

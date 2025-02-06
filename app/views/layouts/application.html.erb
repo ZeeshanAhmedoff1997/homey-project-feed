@@ -18,10 +18,15 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= render Navigation::NavigationComponent.new(user: current_user, hide_auth_links: devise_controller?) %>
+
   </head>
 
-  <body>
-    <%= yield %>
+  <body data-theme="homeytheme">
+    <main class="container mx-auto mt-8 px-5 flex">
+      <%= yield %>
+    </main>
   </body>
 </html>

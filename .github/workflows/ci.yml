@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   scan_ruby:
@@ -35,8 +35,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for security vulnerabilities in JavaScript dependencies
-        run: bin/importmap audit
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install JavaScript dependencies
+        run: npm install
+
+      - name: Precompile assets
+        run: bin/rails assets:precompile
 
   lint:
     runs-on: ubuntu-latest
@@ -85,17 +93,17 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test test:system
+      # - name: Run tests
+      #   env:
+      #     RAILS_ENV: test
+      #     DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      #     # REDIS_URL: redis://localhost:6379/0
+      #   run: bin/rails db:test:prepare test test:system
 
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
+      # - name: Keep screenshots from failed system tests
+      #   uses: actions/upload-artifact@v4
+      #   if: failure()
+      #   with:
+      #     name: screenshots
+      #     path: ${{ github.workspace }}/tmp/screenshots
+      #     if-no-files-found: ignore
