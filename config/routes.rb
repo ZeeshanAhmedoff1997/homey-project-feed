@@ -17,6 +17,6 @@ Rails.application.routes.draw do
   end
 
   unauthenticated do
-    root to: redirect('/users/sign_in')
+    root to: redirect("/users/sign_in")
   end
 end
