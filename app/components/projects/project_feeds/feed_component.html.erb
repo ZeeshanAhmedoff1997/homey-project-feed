@@ -1,0 +1,17 @@
+<div id="project_feeds_<%= project.id %>">
+  <%= turbo_stream_from "project_#{project.id}_feeds" %>
+
+  <% project.project_feeds.order(created_at: :desc).each do |feed| %>
+    <div class="p-2 border-b">
+      <strong><%= feed.user.email %></strong>: <%= feed.message %>
+      <p class="text-sm text-gray-500"><%= feed.created_at.strftime("%b %d, %Y %H:%M") %></p>
+    </div>
+  <% end %>
+
+  <%= form_with model: [project, ProjectFeed.new], data: { turbo_frame: "new_feed" } do |f| %>
+    <div class="mt-4">
+      <%= f.text_area :message, class: "textarea textarea-bordered w-full", placeholder: "Leave a comment..." %>
+      <%= f.submit "Post", class: "btn btn-primary mt-2" %>
+    </div>
+  <% end %>
+</div>

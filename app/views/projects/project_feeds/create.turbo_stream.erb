@@ -1,0 +1,5 @@
+<turbo-stream action="prepend" target="project_feeds_<%= @project.id %>">
+  <template>
+    <%= render "projects/project_feeds/feed", feed: @feed %>
+  </template>
+</turbo-stream>

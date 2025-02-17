@@ -1,0 +1,19 @@
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold mb-4">Your Projects</h1>
+  <hr class="mb-6 border-gray-300">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @owned_projects.each do |project| %>
+      <%= render Projects::CardComponent.new(project: project, owner: true) %>
+    <% end %>
+  </div>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4">Participating Projects</h2>
+  <hr class="mb-6 border-gray-300">
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @participating_projects.each do |project| %>
+      <%= render Projects::CardComponent.new(project: project, owner: false) %>
+    <% end %>
+  </div>
+</div>

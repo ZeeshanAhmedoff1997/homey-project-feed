@@ -1,0 +1,14 @@
+<div class="border p-4 rounded-lg">
+  <% @project.users.each do |user| %>
+    <div class="flex justify-between items-center border-b py-2 mt-2">
+      <span class="mr-2"><%= user.email %></span>
+      <% if @project.user == @current_user && user != @current_user %>
+        <%= button_to "Remove", 
+            remove_member_project_project_member_path(@project, user),
+            method: :delete, 
+            data: { confirm: "Are you sure?" },
+            class: "btn btn-sm btn-error" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

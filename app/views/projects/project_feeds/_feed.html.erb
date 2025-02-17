@@ -1,0 +1,6 @@
+<turbo-frame id="project_feed_<%= feed.id %>" class="p-2 border-b">
+    <div class="p-2 border-b">
+      <strong><%= feed.user.email %></strong>: <%= feed.message %>
+      <p class="text-sm text-gray-500"><%= feed.created_at.strftime("%b %d, %Y %H:%M") %></p>
+    </div>
+</turbo-frame>

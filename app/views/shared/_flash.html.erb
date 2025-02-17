@@ -1,0 +1,9 @@
+<turbo-stream action="append" target="flash-messages">
+  <template>
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type %> flash-message" data-controller="flash">
+        <%= message %>
+      </div>
+    <% end %>
+  </template>
+</turbo-stream>

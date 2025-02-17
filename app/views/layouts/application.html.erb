@@ -7,6 +7,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= turbo_include_tags %>
 
     <%= yield :head %>
 
@@ -16,6 +17,7 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -25,6 +27,9 @@
   </head>
 
   <body data-theme="homeytheme">
+    <div id="flash-messages" class="mt-2 p-4">
+      <%= render "shared/flash" %>
+    </div>
     <main class="container mx-auto mt-8 px-5 flex">
       <%= yield %>
     </main>

@@ -6,17 +6,25 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
-  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-
-  # Defines the root path route ("/")
-  # root "posts#index"
   authenticated :user do
-    root to: "dashboard#index", as: :authenticated_root  # Change to your actual home controller
+    root "projects#index", as: :authenticated_root
   end
 
   unauthenticated do
     root to: redirect("/users/sign_in")
+  end
+
+  resources :projects do
+    member do
+      get "edit"
+      patch "transfer_ownership"
+    end
+
+    resources :project_feeds, only: [:create]
+    resources :project_members, only: [:index, :create, :destroy] do
+      delete :remove_member, on: :member
+      post :add_member, on: :member
+    end
+    patch :transfer_ownership, on: :member
   end
 end
