@@ -1,11 +1,26 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_project, only: [:show, :update, :edit, :transfer_ownership]
-  before_action :authorize_user!, only: [:show, :edit, :update]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   def index
     @owned_projects = current_user.owned_projects
     @participating_projects = current_user.projects.where.not(user_id: current_user.id)
+  end
+
+  def new
+    @project = Project.new
+  end
+
+  def create
+    @project = current_user.owned_projects.new(project_params)
+
+    if @project.save
+      redirect_to @project, notice: "Project successfully created."
+    else
+      flash[:alert] = "Failed to create project."
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show; end
@@ -35,13 +50,15 @@ class ProjectsController < ApplicationController
       end
     end
   end
-  
-  
 
-  def transfer_ownership
-    new_owner = User.find(params[:new_owner_id])
-    @project.update(user: new_owner)
-    redirect_to @project, notice: "Project ownership transferred."
+  def destroy
+    if @project.destroy
+      flash[:notice] = "Project deleted successfully."
+      redirect_to projects_path
+    else
+      flash[:alert] = "Failed to delete project."
+      redirect_to @project
+    end
   end
 
   private

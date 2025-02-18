@@ -16,7 +16,7 @@ class ProjectTransition < ApplicationRecord
 
 
   def update_most_recent
-    last_transition = apartment.apartment_transitions.order(:sort_key).last
+    last_transition = project.project_transitions.order(:sort_key).last
     return if last_transition.blank?
 
     last_transition.update(most_recent: true)
