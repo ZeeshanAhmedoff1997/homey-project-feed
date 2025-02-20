@@ -21,7 +21,7 @@ gem "devise"
 
 gem "pundit"
 
-gem "tailwindcss-rails", "~> 3.3.1"
+gem "tailwindcss-rails", "~> 4.1.0"
 
 gem "view_component"
 
